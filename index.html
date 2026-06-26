@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易在线计算器</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+        body {
+            background-color: #f0f2f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .calculator {
+            background-color: #fff;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+        }
+        #input-box {
+            width: 100%;
+            padding: 16px 12px;
+            font-size: 28px;
+            text-align: right;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        .btn-wrap {
+            display: grid;
+            grid-template-columns: repeat(4, 70px);
+            gap: 10px;
+        }
+        button {
+            width: 70px;
+            height: 70px;
+            font-size: 22px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        button:hover {
+            opacity: 0.85;
+        }
+        .num {
+            background-color: #f3f4f6;
+        }
+        .op {
+            background-color: #3b82f6;
+            color: white;
+        }
+        .clear {
+            background-color: #ef4444;
+            color: white;
+        }
+        .equal {
+            background-color: #10b981;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" id="input-box" readonly>
+        <div class="btn-wrap">
+            <button class="clear" onclick="clearAll()">C</button>
+            <button class="op" onclick="inputChar('/')">÷</button>
+            <button class="op" onclick="inputChar('*')">×</button>
+            <button class="op" onclick="inputChar('-')">-</button>
+
+            <button class="num" onclick="inputChar('7')">7</button>
+            <button class="num" onclick="inputChar('8')">8</button>
+            <button class="num" onclick="inputChar('9')">9</button>
+            <button class="op" onclick="inputChar('+')">+</button>
+
+            <button class="num" onclick="inputChar('4')">4</button>
+            <button class="num" onclick="inputChar('5')">5</button>
+            <button class="num" onclick="inputChar('6')">6</button>
+            <button class="equal" onclick="calcResult()" rowspan="2">=</button>
+
+            <button class="num" onclick="inputChar('1')">1</button>
+            <button class="num" onclick="inputChar('2')">2</button>
+            <button class="num" onclick="inputChar('3')">3</button>
+
+            <button class="num" onclick="inputChar('0')">0</button>
+            <button class="num" onclick="inputChar('.')">.</button>
+            <button class="num" onclick="backspace()">←</button>
+        </div>
+    </div>
+
+    <script>
+        const inputBox = document.getElementById('input-box');
+
+        // 输入字符
+        function inputChar(char) {
+            inputBox.value += char;
+        }
+        // 清空全部
+        function clearAll() {
+            inputBox.value = '';
+        }
+        // 退格删除
+        function backspace() {
+            inputBox.value = inputBox.value.slice(0, -1);
+        }
+        // 计算结果
+        function calcResult() {
+            try {
+                let exp = inputBox.value.replace(/×/g, '*');
+                let res = eval(exp);
+                inputBox.value = res;
+            } catch {
+                inputBox.value = '表达式错误';
+            }
+        }
+    </script>
+</body>
+</html>
