@@ -113,15 +113,16 @@
             inputBox.value = inputBox.value.slice(0, -1);
         }
         // 计算结果
-        function calcResult() {
-            try {
-                let exp = inputBox.value.replace(/×/g, '*');
-                let res = eval(exp);
-                inputBox.value = res;
-            } catch {
-                inputBox.value = '表达式错误';
-            }
-        }
+       function calcResult() {
+    try {
+        let exp = inputBox.value.replace(/×/g, '*');
+        let res = eval(exp);
+        if(String(res).length > 12) res = res.toFixed(6);
+        inputBox.value = res;
+    } catch {
+        inputBox.value = '表达式错误';
+    }
+}
     </script>
 </body>
 </html>
